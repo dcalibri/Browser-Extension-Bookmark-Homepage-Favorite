@@ -10,6 +10,25 @@
 <body>
   <div class="popup-container">
     <h2>Bookmark Kanban Settings</h2>
+
+    <section class="classroom-card">
+      <div class="classroom-card__header">
+        <div>
+          <p class="eyebrow">Classroom Tools</p>
+          <h3>Google Classroom → Drive</h3>
+          <p class="subtitle">Extract posts & organize Drive by assignment.</p>
+        </div>
+      <div class="drive-test">
+        <button id="btnTestDriveDownload" class="button-secondary">Test Drive Direct Download</button>
+        <p id="drive-test-status" class="classroom-status classroom-status--idle">Test a public Drive link without OAuth.</p>
+      </div>
+      </div>
+      <div class="classroom-card__body">
+        <button id="btnExtractClassroom">Extract Classroom CSV</button>
+        <button id="btnBatchDownload" class="button-secondary">Batch Download Attachments</button>
+        <p id="classroom-status" class="classroom-status classroom-status--idle">Ready to extract from the active Classroom tab.</p>
+      </div>
+    </section>
     
     <div class="form-group">
       <label for="show-on-newtab">

@@ -7,7 +7,7 @@
  */
 
 import { siteChecker } from './modules/siteChecker.js';
-import { collectGoogleClassroomData } from './modules/classroomCollector.js';
+import { collectGoogleClassroomData } from './modules/classroomCollectorBackground.js';
 
 // Store check results in memory for current session
 let currentSessionResults = {};
@@ -156,6 +156,44 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     })();
     return true;
   }
+  if (message.type === 'STORE_CLASSROOM_TSV') {
+    (async () => {
+      try {
+        const { tsv, metadata } = message.payload || {};
+        if (!tsv) {
+          sendResponse({ ok: false, message: 'Missing TSV payload' });
+          return;
+        }
+
+        const classSlug = (metadata?.classTitle || 'Google Classroom')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '') || 'google-classroom';
+        const timestamp = metadata?.generatedAt || new Date().toISOString();
+        const tsSlug = timestamp.replace(/[:.]/g, '-');
+        const filename = `csv_exported/${classSlug}-${tsSlug}.tsv`;
+
+        const blob = new Blob([tsv], { type: 'text/tab-separated-values;charset=utf-8;' });
+        const objectUrl = URL.createObjectURL(blob);
+
+        const downloadId = await chrome.downloads.download({
+          url: objectUrl,
+          filename,
+          saveAs: false,
+          conflictAction: 'overwrite'
+        });
+
+        // Revoke after short delay to avoid invalidating download
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 10_000);
+
+        sendResponse({ ok: true, filename, downloadId });
+      } catch (error) {
+        sendResponse({ ok: false, message: error?.message || String(error) });
+      }
+    })();
+    return true;
+  }
+
   if (message.type === 'GET_BOOKMARKS') {
     // Handle bookmark data requests
     chrome.bookmarks.getTree((tree) => {

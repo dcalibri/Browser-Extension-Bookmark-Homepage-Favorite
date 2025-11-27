@@ -33,6 +33,69 @@ h2 {
   color: var(--primary-color);
 }
 
+.classroom-card {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(56, 189, 248, 0.08));
+}
+
+.classroom-card__header h3 {
+  margin: 4px 0;
+  font-size: 15px;
+}
+
+.classroom-card .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  color: var(--secondary-color);
+  margin: 0;
+}
+
+.classroom-card .subtitle {
+  margin: 4px 0 12px;
+  font-size: 12px;
+  color: var(--secondary-color);
+}
+
+.drive-test {
+  margin-bottom: 12px;
+}
+
+.classroom-status {
+  margin-top: 10px;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-color: rgba(15, 23, 42, 0.04);
+}
+
+.classroom-status--idle {
+  border-color: rgba(148, 163, 184, 0.5);
+  color: var(--text-primary);
+}
+
+.classroom-status--running {
+  border-color: rgba(59, 130, 246, 0.6);
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--primary-color);
+}
+
+.classroom-status--success {
+  border-color: rgba(16, 185, 129, 0.6);
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #047857;
+}
+
+.classroom-status--error {
+  border-color: rgba(239, 68, 68, 0.6);
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #b91c1c;
+}
+
 .form-group {
   margin-bottom: 16px;
 }
